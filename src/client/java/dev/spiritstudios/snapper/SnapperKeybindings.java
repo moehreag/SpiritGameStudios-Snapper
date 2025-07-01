@@ -4,7 +4,7 @@ import dev.spiritstudios.snapper.gui.screen.ScreenshotScreen;
 import dev.spiritstudios.snapper.gui.screen.ScreenshotViewerScreen;
 import dev.spiritstudios.snapper.util.ScreenshotActions;
 import dev.spiritstudios.snapper.util.ScreenshotImage;
-import dev.spiritstudios.specter.api.core.util.ClientKeybindEvents;
+import dev.spiritstudios.specter.api.core.client.event.ClientKeybindEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;

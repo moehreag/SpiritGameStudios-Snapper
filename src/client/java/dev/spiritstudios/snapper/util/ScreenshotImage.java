@@ -29,7 +29,7 @@ public class ScreenshotImage implements AutoCloseable {
             throw new IllegalArgumentException("Passed path for invalid file to new ScreenshotImage()");
 
         try (InputStream stream = Files.newInputStream(path)) {
-            this.texture = new NativeImageBackedTexture(NativeImage.read(stream));
+            this.texture = new NativeImageBackedTexture(id::toString, NativeImage.read(stream));
         }
 
         this.textureManager.registerTexture(this.id, this.texture);

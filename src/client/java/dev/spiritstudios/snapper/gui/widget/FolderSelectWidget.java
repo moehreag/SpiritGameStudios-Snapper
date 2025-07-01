@@ -1,6 +1,5 @@
 package dev.spiritstudios.snapper.gui.widget;
 
-import dev.spiritstudios.snapper.util.SnapperUtil;
 import dev.spiritstudios.snapper.util.config.DirectoryConfigUtil;
 import dev.spiritstudios.specter.api.config.Value;
 import net.minecraft.client.MinecraftClient;
@@ -15,12 +14,9 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 import static dev.spiritstudios.snapper.Snapper.MODID;
@@ -64,8 +60,8 @@ public class FolderSelectWidget extends ContainerWidget implements ParentElement
         this.folderSelectButton = TextIconButtonWidget.builder(
                 Text.translatable("config.snapper.snapper.customScreenshotFolder.select"),
                 button -> {
-                    Optional<Path> folderValue = DirectoryConfigUtil.openFolderSelect(Text.translatable("prompt.snapper.folder_select").getString().replaceAll("[^a-zA-Z0-9 .,]", ""));
-                    valueFromSelectDialog(folderValue.orElse(null));
+                    DirectoryConfigUtil.openFolderSelect(Text.translatable("prompt.snapper.folder_select").getString().replaceAll("[^a-zA-Z0-9 .,]", ""))
+                            .thenAccept(folderValue -> valueFromSelectDialog(folderValue.orElse(null)));
                 },
                 true
         ).width(20).texture(FOLDER_ICON, 15, 15).build();
@@ -165,5 +161,23 @@ public class FolderSelectWidget extends ContainerWidget implements ParentElement
     @Override
     public void forEachChild(Consumer<ClickableWidget> consumer) {
         this.children().forEach(consumer);
+    }
+
+    @Override
+    protected int getContentsHeightWithPadding() {
+        return 20;
+    }
+
+    @Override
+    protected double getDeltaYPerScroll() {
+        return 20/2f;
+    }
+
+    @Override
+    public boolean isMouseOver(double mouseX, double mouseY) {
+        this.active = true;
+        var hovered = super.isMouseOver(mouseX, mouseY);
+        this.active = false;
+        return hovered;
     }
 }

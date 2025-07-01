@@ -28,7 +28,7 @@ public abstract class ScreenshotRecorderMixin {
      */
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @Inject(
-            method = "method_1661",
+            method = "method_22691",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/texture/NativeImage;writeTo(Ljava/io/File;)V")
     )
     private static void lookBeforeYouLeap(NativeImage nativeImage, File screenshotFile, Consumer<Text> messageReceiver, CallbackInfo ci) throws IOException {
@@ -37,7 +37,7 @@ public abstract class ScreenshotRecorderMixin {
     }
 
     @Inject(
-            method = "method_1661",
+            method = "method_22691",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/text/Text;literal(Ljava/lang/String;)Lnet/minecraft/text/MutableText;", shift = At.Shift.AFTER)
     )
     private static void saveWrittenFileToClipboard(NativeImage nativeImage, File screenshotFile, Consumer<Text> messageReceiver, CallbackInfo ci) throws IOException {
@@ -47,7 +47,7 @@ public abstract class ScreenshotRecorderMixin {
         }
     }
 
-    @ModifyArg(method = "saveScreenshot(Ljava/io/File;Ljava/lang/String;Lnet/minecraft/client/gl/Framebuffer;Ljava/util/function/Consumer;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/ScreenshotRecorder;saveScreenshotInner(Ljava/io/File;Ljava/lang/String;Lnet/minecraft/client/gl/Framebuffer;Ljava/util/function/Consumer;)V", ordinal = 0))
+    @ModifyArg(method = "saveScreenshot(Ljava/io/File;Lnet/minecraft/client/gl/Framebuffer;Ljava/util/function/Consumer;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/ScreenshotRecorder;saveScreenshot(Ljava/io/File;Ljava/lang/String;Lnet/minecraft/client/gl/Framebuffer;Ljava/util/function/Consumer;)V"))
     private static File getConfiguredGameDirectory(File gameDirectory) {
         Path customScreenshotFolder = SnapperConfig.INSTANCE.customScreenshotFolder.get();
 

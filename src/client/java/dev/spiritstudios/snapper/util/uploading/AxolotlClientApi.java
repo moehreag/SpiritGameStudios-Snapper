@@ -61,7 +61,8 @@ public class AxolotlClientApi implements Closeable {
                 });
     }
 
-    private CompletableFuture<Void> authenticate() {
+    @SuppressWarnings("deprecation")
+	private CompletableFuture<Void> authenticate() {
         if (authTime.plus(24, ChronoUnit.HOURS).isAfter(Instant.now()))
             return CompletableFuture.completedFuture(null);
 

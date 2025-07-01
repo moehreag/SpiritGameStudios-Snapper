@@ -6,7 +6,7 @@ import dev.spiritstudios.snapper.gui.widget.ScreenshotListWidget;
 import dev.spiritstudios.snapper.util.ScreenshotActions;
 import dev.spiritstudios.snapper.util.SnapperUtil;
 import dev.spiritstudios.snapper.util.uploading.ScreenshotUploading;
-import dev.spiritstudios.specter.api.config.RootConfigScreen;
+import dev.spiritstudios.specter.api.config.client.RootConfigScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
