@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 import java.util.function.BiFunction;
 
 public class DirectoryConfigUtil {
@@ -33,19 +32,16 @@ public class DirectoryConfigUtil {
 
                 return DataResult.success(path);
             },
-            Path::toString
+            path -> escapePath(path.toString())
     );
 
-    public static CompletableFuture<Optional<Path>> openFolderSelect(String title) {
-        return CompletableFuture.supplyAsync(() -> {
-            String selectedPath = TinyFileDialogs.tinyfd_selectFolderDialog(title, SystemProperties.getUserHome());
+    public static Optional<Path> openFolderSelect(String title) {
+        String selectedPath = TinyFileDialogs.tinyfd_selectFolderDialog(title, SystemProperties.getUserHome());
+        if (Strings.isNullOrEmpty(selectedPath)) {
+            return Optional.empty();
+        }
 
-            if (Strings.isNullOrEmpty(selectedPath)) {
-                return Optional.empty();
-            }
-
-            return Optional.of(Path.of(selectedPath));
-        });
+        return Optional.of(Path.of(selectedPath));
     }
 
     public static final BiFunction<Value<?>, String, ? extends ClickableWidget> PATH_WIDGET_FACTORY = (configValue, id) -> {
@@ -53,4 +49,8 @@ public class DirectoryConfigUtil {
 
         return new FolderSelectWidget(0, 0, 10, 10, value, "%s.placeholder".formatted(configValue.translationKey(id)));
     };
+
+    public static String escapePath(String path) {
+        return path.replace("\\", "\\\\");
+    }
 }
